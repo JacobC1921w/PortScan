@@ -17,6 +17,28 @@ if [[ ! ${#} -gt 0 ]]; then
 fi
 echo -e "\r[${colorGreen}+${colorReset}] Parsed c0mmand l1ne arguments$(tput el)"
 
+# Check whether getservbyport is compiled
+echo -en "[${colorGray}?${colorReset}] Check1ng 1f getservbyport 1s c0mp1led...\r"
+if [ ! -f ./getservbyport ]; then
+	echo -en "[${colorYellow}*${colorReset}] getservbyport 1s n0t c0mp1led, c0mp1l1ng n0w...$(tput el)\r"
+	gcc getservbyport.c -o getservbyport 2>&1 > /dev/null
+	if [[ ${?} -ne 0 ]]; then
+		echo -e "[${colorRed}-${colorReset}] getservbyport 1s n0t c0mp1led, c0mp1l1ng n0w... FA1LED$(tput el)"
+		exit 1
+	fi
+fi
+echo -e "[${colorGreen}+${colorReset}] F0und getservbyport$(tput el)"
+
+# Check whether getservbyport is working
+echo -en "[${colorGray}?${colorReset}] Par1ty check1ng getservbyport...\r"
+./getservbyport 88 | grep "^88:kerberos$" 2>&1 > /dev/null
+if [[ ${?} -ne 0 ]]; then
+	echo -e "[${colorRed}-${colorReset}] Par1ty check1ng getservbyport... FAILED$(tput el)"
+	rm -dfr getservbyport
+	exit 1
+fi
+echo -e "[${colorGreen}+${colorReset}] Par1ty check1ng c0mplete$(tput el)"
+
 # Check whether supplied hosts are online
 for arg in ${@}; do
 	echo -en "[${colorGray}?${colorReset}] Check1ng 1f ${arg} 1s 0nl1ne and val1d...\r"
@@ -44,6 +66,6 @@ fi
 for host in ${hostList[@]}; do
 	for port in ${top1000Ports[@]}; do
 		echo -en "[${colorGray}?${colorReset}] Check1ng ${host}:${port}...\r"
-		timeout 0.5 bash -c "echo 2>/dev/null > /dev/tcp/${host}/${port}" && echo -e "[${colorGreen}+${colorReset}] ${host}:${port} ($(python -c "print(__import__('socket').getservbyport(${port},'tcp').replace('o', '0').replace('i', '1'))"))$(tput el)"
+		timeout 0.5 bash -c "echo 2>/dev/null > /dev/tcp/${host}/${port}" && echo -e "[${colorGreen}+${colorReset}] ${host}:${port} ($(./getservbyport ${port} | cut -d ':' -f 2 | tr '[:upper:]' '[:lower:]' | sed 's/i/1/g' | sed 's/o/0/g'))$(tput el)"
 	done
 done
