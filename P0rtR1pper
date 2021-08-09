@@ -43,7 +43,7 @@ fi
 # Port scanning
 for host in ${hostList[@]}; do
 	for port in ${top1000Ports[@]}; do
-		echo -en "[${colorGray}?${colorReset}] Checking ${host}:${port}...\r"
-		timeout 0.5 bash -c "echo 2>/dev/null > /dev/tcp/${host}/${port}" && echo -e "[${colorGreen}+${colorReset}] ${host}:${port}$(tput el)"
+		echo -en "[${colorGray}?${colorReset}] Check1ng ${host}:${port}...\r"
+		timeout 0.5 bash -c "echo 2>/dev/null > /dev/tcp/${host}/${port}" && echo -e "[${colorGreen}+${colorReset}] ${host}:${port} ($(python -c "print(__import__('socket').getservbyport(${port},'tcp').replace('o', '0').replace('i', '1'))"))$(tput el)"
 	done
 done
