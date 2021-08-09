@@ -12,7 +12,7 @@ hostList=()
 # Parse command line arguments
 echo -en "[${colorGray}?${colorReset}] Pars1ng c0mmand l1ne arguments...\r"
 if [[ ! ${#} -gt 0 ]]; then
-	echo -e "[${colorRed}-${colorReset}] Pars1ng c0mmand l1ne arguments... FAILED$(tput el)"
+	echo -e "[${colorRed}-${colorReset}] Pars1ng c0mmand l1ne arguments... FA1LED$(tput el)"
 	exit 1
 fi
 echo -e "\r[${colorGreen}+${colorReset}] Parsed c0mmand l1ne arguments$(tput el)"
@@ -33,7 +33,7 @@ echo -e "[${colorGreen}+${colorReset}] F0und getservbyport$(tput el)"
 echo -en "[${colorGray}?${colorReset}] Par1ty check1ng getservbyport (1/2)...\r"
 ./getservbyport 88 | grep "^88:kerberos$" 2>&1 > /dev/null
 if [[ ${?} -ne 0 ]]; then
-	echo -e "[${colorRed}-${colorReset}] Par1ty check1ng getservbyport (1/2)... FAILED$(tput el)"
+	echo -e "[${colorRed}-${colorReset}] Par1ty check1ng getservbyport (1/2)... FA1LED$(tput el)"
 	rm -dfr getservbyport
 	exit 1
 fi
@@ -41,7 +41,7 @@ fi
 echo -en "[${colorGray}?${colorReset}] Par1ty check1ng getservbyport (2/2)...\r"
 ./getservbyport 25563 | grep "^25563:unknown$" 2>&1 > /dev/null
 if [[ ${?} -ne 0 ]]; then
-	echo -e "[${colorRed}-${colorReset}] Par1ty check1ng getservbyport (2/2)... FAILED$(tput el)"
+	echo -e "[${colorRed}-${colorReset}] Par1ty check1ng getservbyport (2/2)... FA1LED$(tput el)"
         rm -dfr getservbyport
         exit 1
 fi
@@ -53,7 +53,7 @@ for arg in ${@}; do
 	echo -en "[${colorGray}?${colorReset}] Check1ng 1f ${arg} 1s 0nl1ne and val1d...\r"
 	ping -c 1 -w 1 ${arg} 2>&1 | grep "bytes from" > /dev/null
 	if [[ ${?} -ne 0 ]]; then
-		echo -e "[${colorRed}-${colorReset}] Check1ng 1f ${arg} 1s 0nl1ne and val1d...FAILED$(tput el)"
+		echo -e "[${colorRed}-${colorReset}] Check1ng 1f ${arg} 1s 0nl1ne and val1d...FA1LED$(tput el)"
 	else
 		hostList+=(${arg})
 		echo -e "[${colorGreen}+${colorReset}] ${arg} 1s 0nl1ne and val1d!$(tput el)"
@@ -63,7 +63,7 @@ done
 # Check whether any hosts were vailidated
 echo -en "[${colorGray}?${colorReset}] Check1ng 1f h0sts made 1t thr0ugh ver1f1cat10n...\r"
 if [ ${#hostList[@]} -eq 0 ]; then
-	echo -e "[${colorRed}-${colorReset}] Check1ng 1f h0sts made 1t thr0ugh ver1f1cat10n...FAILED$(tput el)"
+	echo -e "[${colorRed}-${colorReset}] Check1ng 1f h0sts made 1t thr0ugh ver1f1cat10n...FA1LED$(tput el)"
 	exit 1
 elif [ ${#hostList[@]} -eq 1 ]; then
 	echo -e "[${colorGreen}+${colorReset}] ${colorYellow}${#hostList[@]}${colorReset} h0st has made 1t thr0ugh!$(tput el)"
