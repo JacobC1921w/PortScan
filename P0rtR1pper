@@ -30,13 +30,22 @@ fi
 echo -e "[${colorGreen}+${colorReset}] F0und getservbyport$(tput el)"
 
 # Check whether getservbyport is working
-echo -en "[${colorGray}?${colorReset}] Par1ty check1ng getservbyport...\r"
+echo -en "[${colorGray}?${colorReset}] Par1ty check1ng getservbyport (1/2)...\r"
 ./getservbyport 88 | grep "^88:kerberos$" 2>&1 > /dev/null
 if [[ ${?} -ne 0 ]]; then
-	echo -e "[${colorRed}-${colorReset}] Par1ty check1ng getservbyport... FAILED$(tput el)"
+	echo -e "[${colorRed}-${colorReset}] Par1ty check1ng getservbyport (1/2)... FAILED$(tput el)"
 	rm -dfr getservbyport
 	exit 1
 fi
+
+echo -en "[${colorGray}?${colorReset}] Par1ty check1ng getservbyport (2/2)...\r"
+./getservbyport 25563 | grep "^25563:unknown$" 2>&1 > /dev/null
+if [[ ${?} -ne 0 ]]; then
+	echo -e "[${colorRed}-${colorReset}] Par1ty check1ng getservbyport (2/2)... FAILED$(tput el)"
+        rm -dfr getservbyport
+        exit 1
+fi
+
 echo -e "[${colorGreen}+${colorReset}] Par1ty check1ng c0mplete$(tput el)"
 
 # Check whether supplied hosts are online

@@ -21,10 +21,10 @@ int main(int argc, char *argv[]) {
 	// Magic
 	struct servent *service = getservbyport(htons(portNumber), NULL);
 	if (service == NULL) {
-		printf("ERROR: I'm sorry idek\nUSAGE:\t%s <port>\n", argv[0]);
-		exit(3);
+		printf("%s:unknown\n", argv[1]);
+	} else {
+		printf("%s:%s\n", argv[1], service->s_name);
 	}
 
-	printf("%s:%s\n", argv[1], service->s_name);
 	return 0;
 }
