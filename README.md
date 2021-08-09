@@ -4,7 +4,6 @@ This is a project I have started out of complete boredom. I am to bring you, the
 
 I will be making my own tools, and uploading them to this account, for your personal enjoyment.
 
-I start you off with:
 ## P0rtR1pper (Port scanning)
 
 Just a multi-threaded simple port scanner, uses the top 1000 ports to determine open services. Resolves ports to names for your ease.
