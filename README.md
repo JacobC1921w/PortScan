@@ -1,17 +1,14 @@
-# 90sHackingSuite
+# PortScan
+...<i>by Jacob Collins</i>
 
-This is a project I have started out of complete boredom. I am to bring you, the user, an experience similar to that of a 90s hacking movie, however it actually works.
+This is a simple multi-threaded port scanner that uses vanilla bash to achieve results. It scans the top 1000 ports to determine open services. This tool will also resolve port numbers to their names for your ease.
 
-I will be making my own tools, and uploading them to this account, for your personal enjoyment.
+<br />
 
-## P0rtR1pper (Port scanning)
+## USAGE
 
-Just a multi-threaded simple port scanner, uses the top 1000 ports to determine open services. Resolves ports to names for your ease.
+<br />
+<br />
 
-### Usage:
-```
-$ ./P0rtR1pper <IPAddress 1> <IPAddress 2> ... <IPAddress N>
-```
-
-### <b>WARNING:</b>
-This tool is <i>very</i> noisy, and can be seen very easily. I'm trying to research whether there is a way to scan every single port of the host stealthily, but so far, to no prevail.
+## <b>WARNING:</b>
+This tool is <i>very</i> noisy network wise, and can be seen and detected very easily. Infact, I dare you to run wireshark when you use this program, and see how it looks for yourself. I'm trying to figure out if there's a way to do this more subtly, but so far, to no prevail.
